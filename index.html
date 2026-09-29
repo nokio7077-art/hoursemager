@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ленчик — мастерская конной амуниции</title>
+<title>Horsemajors — мастерская конной амуниции</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Prata&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -194,7 +194,7 @@ details.vac summary{cursor:pointer;font-weight:600;font-size:17px}
 <div class="demo-bar">Демонстрационный прототип: название, цены и данные условные, оплата не списывается</div>
 <header class="site">
   <div class="wrap hdr">
-    <a class="logo" href="#/"><b>Ленчик</b><span>мастерская конной амуниции</span></a>
+    <a class="logo" href="#/"><b>Horsemajors</b><span>мастерская конной амуниции</span></a>
     <nav class="main" id="nav" aria-label="Основное меню">
       <a href="#/catalog" data-nav="catalog">Каталог</a>
       <a href="#/configurator" data-nav="configurator">Конструктор седла</a>
@@ -213,7 +213,7 @@ details.vac summary{cursor:pointer;font-weight:600;font-size:17px}
 <main id="app" tabindex="-1"></main>
 <footer class="site">
   <div class="wrap cols">
-    <div><b style="font-family:var(--serif);font-weight:400;font-size:24px">Ленчик</b><span class="muted">Сёдла, уздечки, подковы и фурнитура с собственного производства в России</span></div>
+    <div><b style="font-family:var(--serif);font-weight:400;font-size:24px">Horsemajors</b><span class="muted">Сёдла, уздечки, подковы и фурнитура с собственного производства в России</span></div>
     <div><b>Покупателям</b><a href="#/help/delivery">Доставка и оплата</a><a href="#/help/returns">Возврат</a><a href="#/help/measure">Как снять мерки</a><a href="#/account">Статус заказа</a></div>
     <div><b>Компания</b><a href="#/about">О производстве</a><a href="#/about#vacancies">Вакансии</a><a href="#/dealers">Клубам и дилерам</a><a href="#/help/contacts">Контакты</a></div>
     <div><b>Документы</b><a href="#/help/privacy">Политика обработки персональных данных</a><a href="#/admin">Панель администратора (демо)</a></div>
@@ -473,7 +473,7 @@ pages.admin=tab=>{
 pages.notfound=()=>'<div class="wrap" style="padding:80px 24px"><h1>Страница не найдена</h1><p class="muted" style="margin:16px 0 24px">Возможно, ссылка устарела. Начните с главной или каталога.</p><a class="btn" href="#/">На главную</a></div>';
 
 /* ---------- router ---------- */
-const TITLES={home:'Ленчик — мастерская конной амуниции'};
+const TITLES={home:'Horsemajors — мастерская конной амуниции'};
 function render(){
  const raw=(location.hash.replace(/^#/,'').split('#')[0])||'/';const [path,q]=raw.split('?');const seg=path.split('/').filter(Boolean).map(decodeURIComponent);
  let html,nav='';
@@ -498,7 +498,7 @@ function render(){
  document.querySelectorAll('[data-nav]').forEach(a=>a.classList.toggle('active',a.dataset.nav===nav));
  document.getElementById('nav').classList.remove('open');
  document.getElementById('cartCount').textContent=S.cart.reduce((a,i)=>a+i.qty,0);
- const h1=app.querySelector('h1');document.title=(h1&&seg[0]?h1.textContent+' — Ленчик':TITLES.home);
+ const h1=app.querySelector('h1');document.title=(h1&&seg[0]?h1.textContent+' — Horsemajors':TITLES.home);
  const anchor=location.hash.split('#')[2];
  if(anchor){const el=document.getElementById(anchor);if(el){el.scrollIntoView();return}}
  window.scrollTo(0,0);

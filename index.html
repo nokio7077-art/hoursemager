@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ленчик — мастерская конной амуниции</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF0EA;--surface:#FFFFFF;--surface-2:#E3E7DE;--ink:#16241C;--ink-2:#46554B;--line:#C9D1C4;
+  --green:#1F3A2B;--green-ink:#FFFFFF;--green-soft:#DCE7DE;--brass:#8A6428;--brass-ink:#FFFFFF;--brass-light:#D9B46A;--leather:#7B4A26;
+  --danger:#A33A2A;--ok:#2E6B45;--warn-bg:#F6EBD3;--warn-ink:#6A4A12;
+  --serif:'Prata',Georgia,'Times New Roman',serif;--sans:'Onest','Segoe UI',system-ui,sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0F1712;--surface:#17221B;--surface-2:#1F2C24;--ink:#E7ECE5;--ink-2:#A9B6AC;--line:#2F3E34;
+  --green:#CFE3D3;--green-ink:#10201A;--green-soft:#22362A;--brass:#D9B46A;--brass-ink:#1E1405;--brass-light:#E8CB8C;--leather:#C98A58;
+  --danger:#E58A7A;--ok:#7CC49A;--warn-bg:#3A2E18;--warn-ink:#F0D9A8;}}
+:root[data-theme="dark"]{
+  --bg:#0F1712;--surface:#17221B;--surface-2:#1F2C24;--ink:#E7ECE5;--ink-2:#A9B6AC;--line:#2F3E34;
+  --green:#CFE3D3;--green-ink:#10201A;--green-soft:#22362A;--brass:#D9B46A;--brass-ink:#1E1405;--brass-light:#E8CB8C;--leather:#C98A58;
+  --danger:#E58A7A;--ok:#7CC49A;--warn-bg:#3A2E18;--warn-ink:#F0D9A8;}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.12;margin:0}
+h1{font-size:clamp(34px,5.2vw,62px)}
+h2{font-size:clamp(26px,3.4vw,38px)}
+h3{font-size:22px}
+p{margin:0}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+.muted{color:var(--ink-2)}
+.small{font-size:14px}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.demo-bar{background:var(--green);color:var(--green-ink);font-size:13px;text-align:center;padding:6px 16px}
+header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+.hdr{display:flex;align-items:center;gap:24px;height:72px}
+.logo{display:flex;flex-direction:column;text-decoration:none;line-height:1.05}
+.logo b{font-family:var(--serif);font-weight:400;font-size:28px}
+.logo span{font-size:12px;color:var(--ink-2)}
+nav.main{display:flex;gap:22px;margin-left:12px;flex:1}
+nav.main a{text-decoration:none;font-size:15px;font-weight:500;padding:6px 0;border-bottom:2px solid transparent}
+nav.main a.active{border-color:var(--brass)}
+.hdr-actions{display:flex;gap:8px;align-items:center}
+.icon-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;min-width:44px;padding:0 12px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);text-decoration:none;font:500 14px var(--sans);cursor:pointer}
+.badge{background:var(--brass);color:var(--brass-ink);border-radius:10px;font-size:12px;padding:0 7px;line-height:20px}
+.burger{display:none}
+@media (max-width:1060px){nav.main{display:none}nav.main.open{display:flex;position:absolute;top:72px;left:0;right:0;flex-direction:column;background:var(--bg);padding:12px 24px 20px;border-bottom:1px solid var(--line)}.burger{display:inline-flex}.hdr-actions .lbl{display:none}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:6px;border:1px solid var(--green);background:var(--green);color:var(--green-ink);font:600 15px var(--sans);text-decoration:none;cursor:pointer}
+.btn:hover{filter:brightness(1.12)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn.brass{background:var(--brass);border-color:var(--brass);color:var(--brass-ink)}
+.btn.sm{min-height:40px;padding:0 14px;font-size:14px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.link{color:var(--brass);font-weight:600;text-decoration:underline;text-underline-offset:3px;background:none;border:0;padding:0;font:inherit;cursor:pointer}
+section{padding:64px 0}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+.grid{display:grid;gap:20px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:900px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.g2,.g3,.g4{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:24px}
+.crumbs{font-size:14px;color:var(--ink-2);padding:20px 0 0}
+.crumbs a{text-decoration:none}
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding:64px 0 72px}
+@media (max-width:900px){.hero{grid-template-columns:1fr;gap:36px;padding-top:40px}}
+.hero p.lead{font-size:19px;color:var(--ink-2);max-width:540px;margin:22px 0 30px}
+.plate-stage{background:var(--green);border-radius:12px;padding:40px 32px;color:var(--green-ink)}
+:root[data-theme="dark"] .plate-stage{background:#1B3024}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .plate-stage{background:#1B3024}}
+.plate{position:relative;border-radius:8px;padding:30px 24px;text-align:center;background:linear-gradient(160deg,#E6C98A,#B48A45);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.18)}
+.plate::before,.plate::after{content:"";position:absolute;top:50%;width:10px;height:10px;border-radius:50%;background:#8C6A2E;box-shadow:inset 0 1px 1px rgba(0,0,0,.4);transform:translateY(-50%)}
+.plate::before{left:12px}.plate::after{right:12px}
+.plate .engr{font-family:var(--serif);font-size:clamp(30px,4vw,46px);color:#5E4415;text-shadow:0 1px 0 rgba(255,236,190,.8);letter-spacing:.03em;min-height:1.2em;overflow-wrap:anywhere}
+.plate .engr.f-sans{font-family:var(--sans);font-weight:600;letter-spacing:.08em}
+.plate .engr.f-script{font-family:var(--serif);font-style:italic}
+.plate-stage label{display:block;font-size:14px;margin:22px 0 8px;color:inherit}
+.plate-stage input{width:100%;height:48px;border-radius:6px;border:0;padding:0 14px;font:16px var(--sans);background:#F4F6F1;color:#16241C}
+.plate-stage .hint{font-size:13px;opacity:.8;margin-top:8px}
+/* category tiles */
+.tile{display:flex;flex-direction:column;gap:10px;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px}
+.tile:hover{border-color:var(--ink-2)}
+.tile .ico{width:56px;height:56px;color:var(--leather)}
+.tile b{font-size:18px;font-weight:600}
+.steps{counter-reset:s}
+.step{border-top:2px solid var(--brass);padding-top:16px}
+.step .n{font-family:var(--serif);font-size:30px;color:var(--brass)}
+.step b{display:block;font-size:18px;margin:6px 0}
+/* product cards */
+.card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.card .pic{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;background:var(--surface-2);color:var(--leather);text-decoration:none}
+.card .pic svg{width:44%;height:auto}
+.card .body{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card .name{font-weight:600;text-decoration:none}
+.card .price{font-size:18px;font-weight:700}
+.stock{font-size:13px}
+.stock.in{color:var(--ok)}.stock.order{color:var(--brass)}
+.card .actions{margin-top:auto;padding-top:8px}
+/* catalog */
+.catalog{display:grid;grid-template-columns:240px minmax(0,1fr);gap:32px;padding:28px 0 64px}
+@media (max-width:820px){.catalog{grid-template-columns:1fr}}
+.filters{display:flex;flex-direction:column;gap:20px}
+.filters a{display:block;padding:6px 0;text-decoration:none}
+.filters a.on{font-weight:700;color:var(--brass)}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+/* forms */
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.field label,.legend{font-size:14px;font-weight:600}
+input[type=text],input[type=tel],input[type=email],input[type=number],input[type=password],input[type=search],select,textarea{width:100%;min-height:46px;padding:10px 12px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:15px var(--sans)}
+textarea{min-height:100px;resize:vertical}
+.err{color:var(--danger);font-size:13px}
+.choice{display:flex;gap:10px;flex-wrap:wrap}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.opt span{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border:1px solid var(--line);border-radius:6px;background:var(--surface);font-size:14px;font-weight:500}
+.opt input:checked+span{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.opt input:focus-visible+span{outline:2px solid var(--brass);outline-offset:2px}
+.swatch{width:22px;height:22px;border-radius:50%;border:1px solid rgba(0,0,0,.2)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14px}
+.check input{width:20px;height:20px;margin-top:1px;flex-shrink:0}
+/* configurator */
+.conf{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:28px 0 64px}
+@media (max-width:900px){.conf{grid-template-columns:1fr}}
+.preview{position:sticky;top:96px;align-self:start}
+.preview .stage{background:var(--surface-2);border-radius:12px;padding:24px}
+.summary{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
+.total{font-size:28px;font-weight:700}
+/* tables */
+.tbl-wrap{overflow-x:auto}
+table.t{width:100%;border-collapse:collapse;font-size:14px;background:var(--surface)}
+table.t th,table.t td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t th{background:var(--surface-2);font-weight:600}
+.num{text-align:right!important;white-space:nowrap}
+/* cart */
+.cart{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:32px;padding:28px 0 64px}
+@media (max-width:900px){.cart{grid-template-columns:1fr}}
+.line-item{display:grid;grid-template-columns:72px minmax(0,1fr) auto;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);align-items:center}
+.line-item .thumb{width:72px;height:72px;border-radius:8px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;color:var(--leather)}
+.line-item .thumb svg{width:60%}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:6px}
+.qty button{width:40px;height:40px;border:0;background:none;color:var(--ink);font-size:18px;cursor:pointer}
+.qty span{min-width:28px;text-align:center}
+.spec{font-size:13px;color:var(--ink-2)}
+.row{display:flex;justify-content:space-between;gap:12px;padding:6px 0}
+.row.tot{border-top:1px solid var(--line);margin-top:8px;padding-top:12px;font-weight:700;font-size:18px}
+/* account */
+.acct{display:grid;grid-template-columns:220px minmax(0,1fr);gap:32px;padding:28px 0 64px}
+@media (max-width:820px){.acct{grid-template-columns:1fr}}
+.side a,.side button{display:block;width:100%;text-align:left;padding:10px 12px;border-radius:6px;text-decoration:none;font:500 15px var(--sans);background:none;border:0;color:var(--ink);cursor:pointer}
+.side a.on{background:var(--green-soft);font-weight:700}
+.timeline{list-style:none;margin:0;padding:0}
+.timeline li{display:grid;grid-template-columns:28px 1fr;gap:14px;padding:10px 0}
+.dot{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;margin-top:2px}
+.dot.done{background:var(--ok);border-color:var(--ok);color:#fff}
+.dot.now{border:3px solid var(--brass)}
+.timeline .cur{font-weight:700;color:var(--brass)}
+.notice{background:var(--warn-bg);color:var(--warn-ink);border-radius:10px;padding:18px 20px;display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
+.status{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:12px;background:var(--green-soft);color:var(--ink)}
+.status.w{background:var(--warn-bg);color:var(--warn-ink)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:24px}
+.tabs a{padding:10px 14px;text-decoration:none;font-weight:500;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs a.on{border-color:var(--brass);font-weight:700}
+footer.site{border-top:1px solid var(--line);padding:40px 0;margin-top:24px;font-size:14px}
+footer .cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+@media (max-width:720px){footer .cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+footer a{display:block;text-decoration:none;color:var(--ink-2);padding:3px 0}
+footer b{display:block;margin-bottom:6px}
+.overlay{position:fixed;inset:0;background:rgba(10,18,14,.6);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px}
+.overlay .box{background:var(--surface);border-radius:12px;padding:28px;max-width:420px;width:100%;text-align:center}
+.spinner{width:36px;height:36px;border:3px solid var(--line);border-top-color:var(--brass);border-radius:50%;margin:0 auto 16px;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spinner{animation:none}}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:8px;font-size:14px;z-index:60}
+details.vac{border-bottom:1px solid var(--line);padding:14px 0}
+details.vac summary{cursor:pointer;font-weight:600;font-size:17px}
+.help{display:grid;grid-template-columns:220px minmax(0,1fr);gap:32px;padding:28px 0 64px}
+@media (max-width:820px){.help{grid-template-columns:1fr}}
+.prose{max-width:760px}
+.prose p,.prose ul,.prose ol{margin:0 0 14px}
+.prose h3{margin:26px 0 10px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:720px){.split{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="demo-bar">Демонстрационный прототип: название, цены и данные условные, оплата не списывается</div>
+<header class="site">
+  <div class="wrap hdr">
+    <a class="logo" href="#/"><b>Ленчик</b><span>мастерская конной амуниции</span></a>
+    <nav class="main" id="nav" aria-label="Основное меню">
+      <a href="#/catalog" data-nav="catalog">Каталог</a>
+      <a href="#/configurator" data-nav="configurator">Конструктор седла</a>
+      <a href="#/engraving" data-nav="engraving">Гравировка</a>
+      <a href="#/dealers" data-nav="dealers">Клубам и дилерам</a>
+      <a href="#/about" data-nav="about">О производстве</a>
+      <a href="#/help/delivery" data-nav="help">Покупателям</a>
+    </nav>
+    <div class="hdr-actions">
+      <button class="icon-btn burger" data-act="burger" aria-label="Меню" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <a class="icon-btn" href="#/account" aria-label="Личный кабинет"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span class="lbl">Кабинет</span></a>
+      <a class="icon-btn" href="#/cart" aria-label="Корзина"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="badge" id="cartCount">0</span></a>
+    </div>
+  </div>
+</header>
+<main id="app" tabindex="-1"></main>
+<footer class="site">
+  <div class="wrap cols">
+    <div><b style="font-family:var(--serif);font-weight:400;font-size:24px">Ленчик</b><span class="muted">Сёдла, уздечки, подковы и фурнитура с собственного производства в России</span></div>
+    <div><b>Покупателям</b><a href="#/help/delivery">Доставка и оплата</a><a href="#/help/returns">Возврат</a><a href="#/help/measure">Как снять мерки</a><a href="#/account">Статус заказа</a></div>
+    <div><b>Компания</b><a href="#/about">О производстве</a><a href="#/about#vacancies">Вакансии</a><a href="#/dealers">Клубам и дилерам</a><a href="#/help/contacts">Контакты</a></div>
+    <div><b>Документы</b><a href="#/help/privacy">Политика обработки персональных данных</a><a href="#/admin">Панель администратора (демо)</a></div>
+  </div>
+</footer>
+<script>
+(function(){
+'use strict';
+/* ---------- icons ---------- */
+const I={
+ saddle:'<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 27c7 0 12-6 21-6 7 0 11 4 18 4 5 0 8-3 12-6 3-2 5 1 3 4-3 5-9 8-16 8H18c-6 0-11-1-13-4z"/><path d="M21 31v14c0 4 3 7 7 7h6c4 0 7-3 7-7V31"/><path d="M31 52v5"/><path d="M26 59h10"/></svg>',
+ bridle:'<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 8v30a10 10 0 0 0 20 0V8"/><path d="M15 16h34"/><path d="M22 30h20"/><circle cx="32" cy="52" r="6"/></svg>',
+ shoe:'<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" aria-hidden="true"><path d="M19 54V32a13 13 0 0 1 26 0v22"/><g stroke-width="2" fill="currentColor"><circle cx="19" cy="44" r="0.6"/><circle cx="45" cy="44" r="0.6"/></g></svg>',
+ fitting:'<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 12h16l5 38H19z"/><path d="M15 50h34"/><path d="M28 12V6h8v6"/></svg>',
+ blanket:'<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14h46v26c-9 10-37 10-46 0z"/><path d="M15 20h34" stroke-dasharray="3 4"/><path d="M26 30h12"/></svg>',
+ care:'<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="22" y="20" width="20" height="36" rx="4"/><path d="M27 20v-8h10v8"/><path d="M22 34h20"/></svg>'
+};
+const CATS=[
+ {id:'saddles',name:'Сёдла',desc:'Выездка, конкур, универсальные. Подбор под лошадь',icon:'saddle'},
+ {id:'bridles',name:'Уздечки и оголовья',desc:'Именная пластина на налобнике по запросу',icon:'bridle'},
+ {id:'shoes',name:'Подковы и ковка',desc:'Серийные размеры и изготовление по меркам',icon:'shoe'},
+ {id:'fittings',name:'Фурнитура',desc:'Стремена, трензеля, пряжки',icon:'fitting'},
+ {id:'blankets',name:'Вальтрапы и аксессуары',desc:'Вышивка и цвета клуба',icon:'blanket'},
+ {id:'care',name:'Уход за амуницией',desc:'Средства для кожи и металла',icon:'care'}
+];
+const P=[
+ {id:'s1',sku:'LN-S-101',cat:'saddles',name:'Седло для выездки «Гранд Прикс»',price:185000,stock:0,conf:true,desc:'Глубокое сиденье, длинное прямое крыло, мягкие коленные упоры. Шьётся под мерки лошади и всадника.'},
+ {id:'s2',sku:'LN-S-102',cat:'saddles',name:'Седло конкурное «Барьер»',price:165000,stock:0,conf:true,desc:'Плоское сиденье, крыло вперёд, объёмные упоры для посадки на прыжке.'},
+ {id:'s3',sku:'LN-S-103',cat:'saddles',name:'Седло универсальное «Тропа»',price:128000,stock:0,conf:true,desc:'Для обучения, прогулок и начального спорта. Подходит большинству лошадей со средней холкой.'},
+ {id:'b1',sku:'LN-B-201',cat:'bridles',name:'Оголовье «Классика» с налобником',price:18500,stock:24,engr:true,sizes:['Пони','Коб','Фулл','Экстра фулл'],desc:'Двойная прошивка, латунная фурнитура. Налобник с местом для именной пластины.'},
+ {id:'b2',sku:'LN-B-202',cat:'bridles',name:'Уздечка для выездки с капсюлем',price:24900,stock:11,engr:true,sizes:['Коб','Фулл','Экстра фулл'],desc:'Анатомический затылочный ремень, комбинированный капсюль.'},
+ {id:'b3',sku:'LN-B-203',cat:'bridles',name:'Недоуздок кожаный именной',price:7900,stock:38,engr:true,sizes:['Пони','Коб','Фулл'],desc:'Именная латунная пластина на щёчном ремне.'},
+ {id:'h1',sku:'LN-H-301',cat:'shoes',name:'Подкова стальная передняя, пара',price:1900,stock:420,sizes:['0','1','2','3','4'],desc:'Серийная подкова для повседневной работы.'},
+ {id:'h2',sku:'LN-H-302',cat:'shoes',name:'Подкова алюминиевая спортивная, пара',price:3400,stock:160,sizes:['0','1','2','3'],desc:'Облегчённая подкова для соревнований.'},
+ {id:'h3',sku:'LN-H-303',cat:'shoes',name:'Подковы по меркам ковочного мастера',price:6500,stock:0,desc:'Изготовление по шаблону или меркам вашего коваля. Срок согласуется после получения мерок.'},
+ {id:'f1',sku:'LN-F-401',cat:'fittings',name:'Стремена из нержавеющей стали',price:6900,stock:57,desc:'Широкая рифлёная подножка.'},
+ {id:'f2',sku:'LN-F-402',cat:'fittings',name:'Трензель двухсоставный',price:5400,stock:43,sizes:['12,5 см','13,5 см','14,5 см'],desc:'Нержавеющая сталь, кольца 6 см.'},
+ {id:'f3',sku:'LN-F-403',cat:'fittings',name:'Пряжки латунные, 10 шт.',price:1800,stock:300,desc:'Для ремонта и изготовления амуниции.'},
+ {id:'a1',sku:'LN-A-501',cat:'blankets',name:'Вальтрап с вышивкой',price:6200,stock:70,engr:true,desc:'Вышиваем кличку лошади или эмблему клуба.'},
+ {id:'a2',sku:'LN-A-502',cat:'blankets',name:'Путлища кожаные',price:8400,stock:35,desc:'Нерастягивающаяся кожа с капроновой основой.'},
+ {id:'c1',sku:'LN-C-601',cat:'care',name:'Бальзам для кожи, 250 мл',price:1450,stock:210,desc:'Пчелиный воск и ланолин.'},
+ {id:'c2',sku:'LN-C-602',cat:'care',name:'Мыло седельное',price:1100,stock:180,desc:'Очищает без пересушивания кожи.'},
+ {id:'c3',sku:'LN-C-603',cat:'care',name:'Набор щёток для амуниции',price:2300,stock:64,desc:'Три щётки разной жёсткости.'}
+];
+const byId=id=>P.find(p=>p.id===id);
+const STAGES=['Оплачен','Макет гравировки','Раскрой кожи','Пошив','Гравировка','Контроль качества','Передан в доставку','Доставлен'];
+const LEATHER=[{id:'black',name:'Чёрная',hex:'#1E1B19',add:0},{id:'havana',name:'Гавана',hex:'#4E2E1C',add:0},{id:'cognac',name:'Коньяк',hex:'#8A4B24',add:0},{id:'tan',name:'Светлая итальянская',hex:'#B07A4A',add:9000}];
+const FONTS=[{id:'serif',name:'Антиква',cls:''},{id:'sans',name:'Гротеск',cls:'f-sans'},{id:'script',name:'Курсив',cls:'f-script'}];
+
+/* ---------- state ---------- */
+const KEY='lenchik-demo-v1';
+const now=()=>new Date();
+const fmtD=d=>new Date(d).toLocaleDateString('ru-RU',{day:'numeric',month:'long'});
+const fmtT=d=>new Date(d).toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+const rub=n=>Math.round(n).toLocaleString('ru-RU')+' ₽';
+const addWorkDays=(d,n)=>{const x=new Date(d);let k=0;while(k<n){x.setDate(x.getDate()+1);const w=x.getDay();if(w!==0&&w!==6)k++}return x};
+function seed(){
+ const t=Date.now();
+ return {
+  cart:[],user:null,dealer:null,
+  conf:{model:'s1',tree:'medium',seat:'17',leather:'cognac',metal:'steel',engraving:'',font:'serif',place:'flap'},
+  content:{heroTitle:'Амуниция, сделанная под вашу лошадь',heroSub:'Соберите седло или уздечку в конструкторе, добавьте именную гравировку и следите за каждым этапом изготовления в личном кабинете.'},
+  horses:[{id:'hs1',name:'Гранд',breed:'Ганноверская',age:7,withers:'Средняя',girth:190,notes:'Высокая холка, чувствительная спина'}],
+  profile:{name:'Анна Смирнова',phone:'+7 900 000-00-00',email:'anna@example.ru',nEmail:true,nSms:true,nTg:false},
+  orders:[
+   {id:'Л-2026-0142',date:t-12*864e5,items:[{name:'Седло для выездки «Гранд Прикс»',spec:'Ленчик средний, сиденье 17", кожа коньяк, фурнитура сталь, гравировка «Гранд» (антиква) на крыле',qty:1,price:188500,engr:'Гранд',font:'serif'}],total:188500,delivery:{method:'СДЭК, пункт выдачи',city:'Санкт-Петербург',cost:390},pay:'Банковская карта',stage:3,mockup:'pending',ready:addWorkDays(now(),14),track:null},
+   {id:'Л-2026-0097',date:t-40*864e5,items:[{name:'Недоуздок кожаный именной',spec:'Размер Коб, пластина «Мальва»',qty:1,price:9400,engr:'Мальва',font:'script'}],total:9400,delivery:{method:'СДЭК, курьер',city:'Санкт-Петербург',cost:690},pay:'СБП',stage:7,mockup:'approved',ready:t-20*864e5,track:'1049586723'}
+  ],
+  log:[
+   {t:t-40*864e5,from:'Сайт',to:'1С:ERP',ev:'Заказ Л-2026-0097 передан',st:'ok'},
+   {t:t-12*864e5,from:'PayKeeper',to:'Сайт',ev:'Оплата заказа Л-2026-0142, чек «Предоплата 100%»',st:'ok'},
+   {t:t-12*864e5,from:'Сайт',to:'1С:ERP',ev:'Заказ Л-2026-0142 передан со спецификацией',st:'ok'},
+   {t:t-12*864e5,from:'Сайт',to:'CRM',ev:'Клиент Анна Смирнова обновлён',st:'ok'},
+   {t:t-6*864e5,from:'MES',to:'1С:ERP → Сайт',ev:'Л-2026-0142: этап «Раскрой кожи» завершён',st:'ok'},
+   {t:t-2*864e5,from:'1С:ERP',to:'Сайт',ev:'Л-2026-0142: макет гравировки загружен на согласование',st:'ok'},
+   {t:t-36e5,from:'1С:ERP',to:'Сайт',ev:'Обновлены цены и остатки: 17 позиций',st:'ok'}
+  ],
+  dealerCart:{},
+  dealerOrders:[{id:'Д-2026-0031',date:t-18*864e5,lines:14,total:212400,status:'Отгружен'},{id:'Д-2026-0044',date:t-4*864e5,lines:6,total:86900,status:'Собирается на складе'}],
+  requests:[]
+ };
+}
+let S;
+try{S=JSON.parse(localStorage.getItem(KEY))||seed()}catch(e){S=seed()}
+S.orders.forEach(o=>{o.ready=new Date(o.ready)});
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function log(from,to,ev){S.log.push({t:Date.now(),from,to,ev,st:'ok'})}
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function toast(msg){const el=document.createElement('div');el.className='toast';el.setAttribute('role','status');el.textContent=msg;document.body.appendChild(el);setTimeout(()=>el.remove(),2600)}
+
+/* ---------- configurator logic ---------- */
+function confCalc(c){
+ const m=byId(c.model);const l=LEATHER.find(x=>x.id===c.leather);
+ let price=m.price+l.add+(c.metal==='brass'?4500:0)+(c.engraving.trim()?3500:0);
+ const queue=4; // загрузка участков по данным производства (демо)
+ let days=21+queue+(c.engraving.trim()?2:0)+(c.tree==='consult'?3:0);
+ return {price,days,date:addWorkDays(now(),days),leather:l,model:m};
+}
+function saddleSVG(c){
+ const l=LEATHER.find(x=>x.id===c.leather);const metal=c.metal==='brass'?'#C49A4A':'#A7ADB0';
+ const f=FONTS.find(x=>x.id===c.font);const txt=esc(c.engraving.trim()||'Кличка');
+ const fam=c.font==='sans'?"font-family:Onest,sans-serif;font-weight:600;letter-spacing:2px":(c.font==='script'?"font-family:Prata,serif;font-style:italic":"font-family:Prata,serif");
+ const plate=c.place==='cantle'?'<rect x="286" y="62" width="70" height="18" rx="3" fill="'+metal+'"/><text x="321" y="75" text-anchor="middle" font-size="11" fill="#3b2a10" style="'+fam+'">'+txt+'</text>':'<rect x="152" y="150" width="96" height="26" rx="4" fill="'+metal+'"/><text x="200" y="168" text-anchor="middle" font-size="14" fill="#3b2a10" style="'+fam+'">'+txt+'</text>';
+ return '<svg viewBox="0 0 400 270" role="img" aria-label="Превью седла: кожа '+esc(l.name.toLowerCase())+', гравировка '+txt+'">'+
+ '<path d="M36 108C84 90 128 70 200 78c50 6 80 18 128-8 20-10 38-2 32 12-18 36-60 48-120 48H118c-40 0-72-6-82-22z" fill="'+l.hex+'"/>'+
+ '<path d="M36 108C84 90 128 70 200 78c50 6 80 18 128-8" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="3"/>'+
+ '<path d="M138 124c0 30-2 70 10 94 10 18 84 18 98 0 10-24 8-64 6-94z" fill="'+l.hex+'"/><path d="M138 124c0 30-2 70 10 94 10 18 84 18 98 0 10-24 8-64 6-94z" fill="rgba(0,0,0,.18)"/>'+
+ '<path d="M150 132c-4 30-2 60 8 80" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="6" stroke-linecap="round"/>'+
+ '<rect x="193" y="124" width="12" height="118" fill="'+l.hex+'"/><rect x="193" y="124" width="12" height="118" fill="rgba(0,0,0,.28)"/>'+
+ '<path d="M180 240h38l-5 20h-28z" fill="none" stroke="'+metal+'" stroke-width="5" stroke-linejoin="round"/>'+plate+'</svg>';
+}
+
+/* ---------- pages ---------- */
+const crumbs=arr=>'<div class="wrap crumbs">'+arr.map((c,i)=>i<arr.length-1?'<a href="'+c[1]+'">'+esc(c[0])+'</a> / ':esc(c[0])).join('')+'</div>';
+function card(p){
+ const c=CATS.find(x=>x.id===p.cat);
+ const stock=p.conf?'<span class="stock order">Изготавливается под заказ</span>':(p.stock>0?'<span class="stock in">В наличии: '+p.stock+' шт.</span>':'<span class="stock order">Под заказ</span>');
+ const act=p.conf?'<a class="btn sm" href="#/configurator?m='+p.id+'">Собрать</a>':(p.stock>0&&!p.sizes&&!p.engr?'<button class="btn sm" data-act="quickAdd" data-id="'+p.id+'">В корзину</button>':'<a class="btn sm ghost" href="#/product/'+p.id+'">Выбрать</a>');
+ return '<article class="card"><a class="pic" href="#/product/'+p.id+'" aria-label="'+esc(p.name)+'">'+I[c.icon]+'</a><div class="body"><a class="name" href="#/product/'+p.id+'">'+esc(p.name)+'</a><div class="price">'+(p.conf?'от ':'')+rub(p.price)+'</div>'+stock+'<div class="actions">'+act+'</div></div></article>';
+}
+const pages={};
+pages.home=()=>{
+ const d=S.conf.engraving;
+ return '<div class="wrap"><div class="hero"><div><h1>'+esc(S.content.heroTitle)+'</h1><p class="lead">'+esc(S.content.heroSub)+'</p><div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="#/configurator">Собрать седло</a><a class="btn ghost" href="#/catalog">Смотреть каталог</a></div></div>'+
+ '<div class="plate-stage"><div class="plate"><div class="engr" id="heroPlate">'+esc(d||'Гранд')+'</div></div><label for="heroInput">Кличка вашей лошади</label><input id="heroInput" type="text" maxlength="20" value="'+esc(d)+'" placeholder="Например, Гранд" data-bind="heroPlate"><p class="hint">Так гравировка будет выглядеть на крыле седла или налобнике</p><button class="btn brass" style="margin-top:18px;width:100%" data-act="heroToConf">Собрать седло с этой гравировкой</button></div></div></div>'+
+ '<section style="padding-top:8px"><div class="wrap"><div class="section-head"><h2>Каталог</h2><a class="link" href="#/catalog">Весь каталог</a></div><div class="grid g3">'+CATS.map(c=>'<a class="tile" href="#/catalog/'+c.id+'"><span class="ico">'+I[c.icon]+'</span><b>'+c.name+'</b><span class="muted small">'+c.desc+'</span></a>').join('')+'</div></div></section>'+
+ '<section style="background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap"><h2 style="margin-bottom:32px">Как проходит индивидуальный заказ</h2><div class="grid g4">'+
+ [['Соберите изделие','Модель, размер, кожа, фурнитура и текст гравировки. Цена и срок видны сразу.'],['Согласуйте макет','Макет гравировки приходит в личный кабинет. Мастер начинает гравировку только после вашего подтверждения.'],['Следите за изготовлением','Статус меняется, когда мастер завершает этап: раскрой, пошив, гравировка, контроль качества.'],['Получите заказ','Трек-номер появляется в кабинете сразу после передачи в службу доставки.']].map((s,i)=>'<div class="step"><div class="n">'+(i+1)+'</div><b>'+s[0]+'</b><p class="muted">'+s[1]+'</p></div>').join('')+'</div></div></section>'+
+ '<section><div class="wrap"><div class="section-head"><h2>Часто заказывают</h2></div><div class="grid g4">'+['s1','b1','h2','c1'].map(id=>card(byId(id))).join('')+'</div></div></section>'+
+ '<section style="padding-top:0"><div class="wrap grid g2"><div class="panel"><h3>Конным клубам</h3><p class="muted" style="margin:10px 0 18px">Комплекты амуниции в цветах клуба, именная гравировка для каждой лошади, единый счёт и документы через ЭДО.</p><a class="btn" href="#/dealers#club">Запросить предложение</a></div><div class="panel"><h3>Дилерам</h3><p class="muted" style="margin:10px 0 18px">Кабинет партнёра с оптовыми ценами, остатками со склада и заказом списком.</p><a class="btn" href="#/dealer">Войти в кабинет дилера</a></div></div></section>';
+};
+pages.catalog=(cat,q)=>{
+ const params=new URLSearchParams(q||'');const s=(params.get('s')||'').toLowerCase();const only=params.get('in')==='1';const sort=params.get('sort')||'';
+ let list=P.filter(p=>(!cat||p.cat===cat)&&(!s||p.name.toLowerCase().includes(s))&&(!only||p.stock>0));
+ if(sort==='asc')list.sort((a,b)=>a.price-b.price);if(sort==='desc')list.sort((a,b)=>b.price-a.price);
+ const c=CATS.find(x=>x.id===cat);
+ return crumbs([['Главная','#/'],['Каталог','#/catalog']].concat(c?[[c.name,'']]:[]).slice(0,c?3:2))+'<div class="wrap catalog"><aside class="filters" aria-label="Фильтры"><div><div class="legend" style="margin-bottom:6px">Категории</div><a href="#/catalog" class="'+(!cat?'on':'')+'">Все товары</a>'+CATS.map(x=>'<a href="#/catalog/'+x.id+'" class="'+(x.id===cat?'on':'')+'">'+x.name+'</a>').join('')+'</div><div class="panel small"><b>Не нашли нужное?</b><p class="muted" style="margin:6px 0 10px">Изготовим по вашим меркам или эскизу.</p><a class="link" href="#/help/contacts">Написать мастеру</a></div></aside>'+
+ '<div><h1 style="font-size:40px;margin-bottom:20px">'+(c?c.name:'Каталог')+'</h1><div class="toolbar"><div style="flex:1;min-width:200px"><label class="sr" for="cs" style="position:absolute;left:-9999px">Поиск по каталогу</label><input id="cs" type="search" placeholder="Поиск по каталогу" value="'+esc(params.get('s')||'')+'" data-act-input="catSearch"></div><select aria-label="Сортировка" data-act-change="catSort" style="width:auto"><option value="">По умолчанию</option><option value="asc"'+(sort==='asc'?' selected':'')+'>Сначала дешевле</option><option value="desc"'+(sort==='desc'?' selected':'')+'>Сначала дороже</option></select><label class="check" style="align-items:center"><input type="checkbox" data-act-change="catStock"'+(only?' checked':'')+'> Только в наличии</label></div>'+
+ (list.length?'<div class="grid g3">'+list.map(card).join('')+'</div>':'<div class="panel"><b>Ничего не нашлось.</b> <span class="muted">Измените запрос или снимите фильтр «Только в наличии».</span></div>')+'</div></div>';
+};
+pages.product=id=>{
+ const p=byId(id);if(!p)return pages.notfound();const c=CATS.find(x=>x.id===p.cat);
+ if(p.conf)return crumbs([['Главная','#/'],['Каталог','#/catalog'],[c.name,'#/catalog/'+c.id],[p.name,'']])+'<div class="wrap conf"><div class="stage" style="background:var(--surface-2);border-radius:12px;display:flex;align-items:center;justify-content:center;padding:48px;color:var(--leather)"><div style="width:50%">'+I[c.icon]+'</div></div><div><h1 style="font-size:40px">'+esc(p.name)+'</h1><p class="total" style="margin:16px 0">от '+rub(p.price)+'</p><p class="muted" style="margin-bottom:24px">'+esc(p.desc)+'</p><a class="btn" href="#/configurator?m='+p.id+'">Собрать в конструкторе</a><div class="panel" style="margin-top:28px"><b>Изготавливается под заказ</b><p class="muted small" style="margin-top:6px">Срок рассчитывается в конструкторе по текущей загрузке цехов. Не знаете размер ленчика? Выберите «нужна консультация», мастер свяжется с вами.</p></div></div></div>';
+ return crumbs([['Главная','#/'],['Каталог','#/catalog'],[c.name,'#/catalog/'+c.id],[p.name,'']])+'<div class="wrap conf"><div class="stage" style="background:var(--surface-2);border-radius:12px;display:flex;align-items:center;justify-content:center;padding:48px;color:var(--leather);min-height:320px"><div style="width:46%">'+I[c.icon]+'</div></div><div><h1 style="font-size:38px">'+esc(p.name)+'</h1><p class="total" style="margin:14px 0 6px">'+rub(p.price)+'</p>'+(p.stock>0?'<p class="stock in" style="margin-bottom:20px">В наличии: '+p.stock+' шт.</p>':'<p class="stock order" style="margin-bottom:20px">Под заказ, срок уточнит менеджер</p>')+
+ '<form data-form="addProduct" data-id="'+p.id+'" novalidate>'+(p.sizes?'<div class="field"><span class="legend">Размер</span><div class="choice">'+p.sizes.map((s,i)=>'<label class="opt"><input type="radio" name="size" value="'+esc(s)+'"'+(i===1||p.sizes.length===1?' checked':'')+'><span>'+esc(s)+'</span></label>').join('')+'</div></div>':'')+
+ (p.engr?'<div class="field"><label for="pe">'+(p.cat==='blankets'?'Текст вышивки':'Текст на именной пластине')+' (до 16 символов, +1 500 ₽)</label><input id="pe" name="engr" type="text" maxlength="16" placeholder="Необязательно"></div>':'')+
+ '<div class="field" style="max-width:140px"><label for="pq">Количество</label><input id="pq" name="qty" type="number" min="1" value="1"></div><button class="btn" type="submit">Добавить в корзину</button></form>'+
+ '<div class="prose" style="margin-top:28px"><h3>Описание</h3><p class="muted">'+esc(p.desc)+'</p><div class="tbl-wrap"><table class="t"><tr><th>Артикул</th><td>'+p.sku+'</td></tr><tr><th>Категория</th><td>'+c.name+'</td></tr><tr><th>Производство</th><td>Собственные цеха</td></tr></table></div></div></div></div>';
+};
+pages.configurator=q=>{
+ const params=new URLSearchParams(q||'');const m=params.get('m');if(m&&byId(m)&&byId(m).conf&&S.conf.model!==m){S.conf.model=m;save()}
+ const c=S.conf;const r=confCalc(c);
+ const radios=(name,opts)=>'<div class="choice">'+opts.map(o=>'<label class="opt"><input type="radio" name="'+name+'" value="'+o[0]+'"'+(c[name]===o[0]?' checked':'')+' data-conf="'+name+'"><span>'+(o[2]||'')+esc(o[1])+'</span></label>').join('')+'</div>';
+ return crumbs([['Главная','#/'],['Сёдла','#/catalog/saddles'],['Конструктор','']])+'<div class="wrap conf"><div class="preview"><div class="stage" id="confPreview">'+saddleSVG(c)+'</div><p class="muted small" style="margin-top:10px">Превью условное. Точный макет гравировки мастер пришлёт в личный кабинет на согласование.</p></div>'+
+ '<div><h1 style="font-size:40px;margin-bottom:24px">Конструктор седла</h1>'+
+ '<div class="field"><span class="legend">Модель</span>'+radios('model',P.filter(p=>p.conf).map(p=>[p.id,p.name.replace('Седло ','')+' — от '+rub(p.price)]))+'</div>'+
+ '<div class="field"><span class="legend">Ширина ленчика</span>'+radios('tree',[['narrow','Узкий'],['medium','Средний'],['wide','Широкий'],['consult','Нужна консультация мастера']])+'</div>'+
+ '<div class="field"><span class="legend">Размер сиденья</span>'+radios('seat',[['16.5','16,5"'],['17','17"'],['17.5','17,5"'],['18','18"']])+'</div>'+
+ '<div class="field"><span class="legend">Кожа</span>'+radios('leather',LEATHER.map(l=>[l.id,l.name+(l.add?' (+'+rub(l.add)+')':''),'<i class="swatch" style="background:'+l.hex+'"></i>']))+'</div>'+
+ '<div class="field"><span class="legend">Фурнитура</span>'+radios('metal',[['steel','Нержавеющая сталь'],['brass','Латунь (+4 500 ₽)']])+'</div>'+
+ '<div class="field"><label for="ce">Гравировка, до 20 символов (+3 500 ₽)</label><input id="ce" type="text" maxlength="20" value="'+esc(c.engraving)+'" placeholder="Кличка лошади или инициалы" data-conf-text="engraving"></div>'+
+ '<div class="field"><span class="legend">Шрифт и место гравировки</span>'+radios('font',FONTS.map(f=>[f.id,f.name]))+'<div style="height:8px"></div>'+radios('place',[['flap','На крыле'],['cantle','На задней луке']])+'</div>'+
+ '<div class="panel summary" id="confSummary">'+confSummaryHTML(r)+'</div><p style="margin-top:14px"><a class="link" href="#/help/measure">Как снять мерки лошади</a></p></div></div>';
+};
+function confSummaryHTML(r){return '<div><div class="total">'+rub(r.price)+'</div><div class="muted small">Готовность ориентировочно '+fmtD(r.date)+' ('+r.days+' раб. дн.). Срок рассчитан по текущей загрузке цехов</div></div><button class="btn" data-act="confAdd">Добавить в корзину</button>'}
+pages.cart=()=>{
+ if(!S.cart.length)return '<div class="wrap" style="padding:64px 24px"><h1 style="font-size:40px">Корзина</h1><p class="muted" style="margin:16px 0 24px">В корзине пока ничего нет. Начните с каталога или соберите седло в конструкторе.</p><div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="#/catalog">Перейти в каталог</a><a class="btn ghost" href="#/configurator">Открыть конструктор</a></div></div>';
+ const sum=S.cart.reduce((a,i)=>a+i.price*i.qty,0);
+ return '<div class="wrap cart"><div><h1 style="font-size:40px;margin-bottom:12px">Корзина</h1>'+S.cart.map((i,k)=>{const p=byId(i.pid);const c=CATS.find(x=>x.id===p.cat);return '<div class="line-item"><div class="thumb">'+I[c.icon]+'</div><div><b>'+esc(i.name)+'</b>'+(i.spec?'<div class="spec">'+esc(i.spec)+'</div>':'')+'<div style="margin-top:8px;display:flex;gap:14px;align-items:center;flex-wrap:wrap"><div class="qty"><button data-act="qty" data-k="'+k+'" data-d="-1" aria-label="Уменьшить">−</button><span>'+i.qty+'</span><button data-act="qty" data-k="'+k+'" data-d="1" aria-label="Увеличить">+</button></div><button class="link" data-act="rm" data-k="'+k+'">Удалить</button></div></div><div class="num"><b>'+rub(i.price*i.qty)+'</b></div></div>'}).join('')+'</div>'+
+ '<aside><div class="panel"><div class="row"><span>Товары</span><span>'+rub(sum)+'</span></div><div class="row"><span>Доставка</span><span class="muted">рассчитаем при оформлении</span></div><div class="row tot"><span>Итого</span><span>'+rub(sum)+'</span></div><a class="btn" style="width:100%;margin-top:16px" href="#/checkout">Оформить заказ</a></div></aside></div>';
+};
+const CITY={'Санкт-Петербург':390,'Москва':490,'Екатеринбург':590,'Другой город':690};
+function delivCost(city,method){if(method==='pickup')return 0;return CITY[city]+(method==='courier'?300:0)}
+pages.checkout=()=>{
+ if(!S.cart.length)return pages.cart();
+ const pr=S.user?S.profile:{name:'',phone:'',email:''};
+ const sum=S.cart.reduce((a,i)=>a+i.price*i.qty,0);const d=delivCost('Санкт-Петербург','pvz');
+ return crumbs([['Корзина','#/cart'],['Оформление','']])+'<div class="wrap cart"><form data-form="checkout" novalidate><h1 style="font-size:40px;margin-bottom:24px">Оформление заказа</h1>'+
+ '<h3 style="margin-bottom:14px">Получатель</h3><div class="split"><div class="field"><label for="n">Имя и фамилия</label><input id="n" name="name" type="text" autocomplete="name" value="'+esc(pr.name)+'"><span class="err" data-err="name"></span></div><div class="field"><label for="ph">Телефон</label><input id="ph" name="phone" type="tel" autocomplete="tel" value="'+esc(pr.phone)+'"><span class="err" data-err="phone"></span></div></div><div class="field"><label for="em">E-mail для чеков и уведомлений</label><input id="em" name="email" type="email" autocomplete="email" value="'+esc(pr.email)+'"><span class="err" data-err="email"></span></div>'+
+ '<h3 style="margin:24px 0 14px">Доставка</h3><div class="field"><label for="city">Город</label><select id="city" name="city" data-act-change="recalc">'+Object.keys(CITY).map(c=>'<option>'+c+'</option>').join('')+'</select></div><div class="field"><div class="choice">'+[['pvz','СДЭК, пункт выдачи'],['courier','СДЭК, курьер'],['pickup','Самовывоз с производства']].map((o,i)=>'<label class="opt"><input type="radio" name="method" value="'+o[0]+'"'+(i===0?' checked':'')+' data-act-change="recalc"><span>'+o[1]+'</span></label>').join('')+'</div></div><div class="field"><label for="addr">Адрес пункта выдачи или доставки</label><input id="addr" name="addr" type="text" autocomplete="street-address"><span class="err" data-err="addr"></span></div>'+
+ '<h3 style="margin:24px 0 14px">Оплата через PayKeeper</h3><div class="field"><div class="choice"><label class="opt"><input type="radio" name="pay" value="СБП" checked><span>СБП: по QR-коду из приложения банка</span></label><label class="opt"><input type="radio" name="pay" value="Банковская карта"><span>Банковская карта</span></label></div><p class="muted small" style="margin-top:8px">Индивидуальные изделия оплачиваются заранее. Вы получите чек «Предоплата» сразу и чек «Полный расчёт» при отгрузке.</p></div>'+
+ '<div class="field"><label for="cm">Комментарий к заказу</label><textarea id="cm" name="comment" placeholder="Например, удобное время звонка"></textarea></div>'+
+ '<label class="check"><input type="checkbox" name="consent"> <span>Согласен(на) на обработку персональных данных в соответствии с <a class="link" href="#/help/privacy">политикой</a></span></label><span class="err" data-err="consent"></span><div style="margin-top:20px"><button class="btn" type="submit">Перейти к оплате</button></div></form>'+
+ '<aside><div class="panel"><b>Ваш заказ</b>'+S.cart.map(i=>'<div class="row small"><span>'+esc(i.name)+' × '+i.qty+'</span><span class="num">'+rub(i.price*i.qty)+'</span></div>').join('')+'<div class="row"><span>Доставка</span><span id="dCost">'+rub(d)+'</span></div><div class="row tot"><span>К оплате</span><span id="dTotal">'+rub(sum+d)+'</span></div></div></aside></div>';
+};
+pages.success=id=>{const o=S.orders.find(x=>x.id===id);if(!o)return pages.notfound();const custom=o.items.some(i=>i.engr||i.custom);
+ return '<div class="wrap" style="padding:64px 24px;max-width:760px"><p class="status">Оплата прошла</p><h1 style="font-size:42px;margin:14px 0">Заказ '+esc(o.id)+' принят</h1><p class="muted" style="font-size:18px">Мы отправили чек «Предоплата 100%» на вашу почту. Заказ уже передан на производство.</p><div class="panel" style="margin:28px 0"><b>Что дальше</b><ol class="muted" style="margin:10px 0 0;padding-left:20px">'+(custom?'<li>Мастер подготовит макет гравировки и пришлёт его в личный кабинет на согласование.</li>':'')+'<li>Статус заказа будет меняться по мере изготовления, уведомления придут на почту.</li><li>После отгрузки в кабинете появится трек-номер.</li></ol></div><div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="#/account/order/'+encodeURIComponent(o.id)+'">Открыть заказ в кабинете</a><a class="btn ghost" href="#/catalog">Продолжить покупки</a></div></div>';};
+/* account */
+function acctShell(tab,inner){
+ return '<div class="wrap acct"><nav class="side" aria-label="Личный кабинет"><div style="padding:0 12px 12px"><b>'+esc(S.profile.name)+'</b><div class="muted small">'+esc(S.profile.phone)+'</div></div><a href="#/account" class="'+(tab==='orders'?'on':'')+'">Мои заказы</a><a href="#/account/horses" class="'+(tab==='horses'?'on':'')+'">Мои лошади и мерки</a><a href="#/account/docs" class="'+(tab==='docs'?'on':'')+'">Документы и чеки</a><a href="#/account/profile" class="'+(tab==='profile'?'on':'')+'">Профиль и уведомления</a><button data-act="logout">Выйти</button></nav><div>'+inner+'</div></div>';
+}
+pages.login=()=>'<div class="wrap" style="padding:64px 24px;max-width:520px"><h1 style="font-size:40px">Вход в личный кабинет</h1><p class="muted" style="margin:12px 0 24px">Отправим код по SMS или на почту. В демо подойдёт любой код из 4 цифр.</p><form data-form="login" novalidate><div class="field"><label for="lg">Телефон или e-mail</label><input id="lg" name="login" type="text" value="'+esc(S.profile.phone)+'"></div><div class="field"><label for="cd">Код</label><input id="cd" name="code" type="text" inputmode="numeric" maxlength="4" placeholder="0000"><span class="err" data-err="code"></span></div><button class="btn" type="submit">Войти</button></form></div>';
+pages.account=(sub,arg)=>{
+ if(!S.user)return pages.login();
+ if(sub==='order')return acctShell('orders',orderDetail(arg));
+ if(sub==='horses')return acctShell('horses','<h1 style="font-size:36px;margin-bottom:20px">Мои лошади и мерки</h1><p class="muted" style="margin-bottom:20px">Мерки подставляются в конструктор, чтобы не вводить их заново.</p><div class="grid g2">'+S.horses.map(h=>'<div class="panel"><h3>'+esc(h.name)+'</h3><p class="muted small" style="margin:6px 0 12px">'+esc(h.breed)+', '+esc(h.age)+' лет</p><div class="row small"><span>Ширина холки</span><span>'+esc(h.withers)+'</span></div><div class="row small"><span>Обхват</span><span>'+esc(h.girth)+' см</span></div>'+(h.notes?'<p class="small muted" style="margin-top:8px">'+esc(h.notes)+'</p>':'')+'<button class="link" style="margin-top:12px" data-act="rmHorse" data-id="'+h.id+'">Удалить</button></div>').join('')+'</div>'+
+  '<form class="panel" style="margin-top:24px" data-form="horse" novalidate><h3 style="margin-bottom:14px">Добавить лошадь</h3><div class="split"><div class="field"><label for="hn">Кличка</label><input id="hn" name="name" type="text"><span class="err" data-err="name"></span></div><div class="field"><label for="hb">Порода</label><input id="hb" name="breed" type="text"></div><div class="field"><label for="ha">Возраст, лет</label><input id="ha" name="age" type="number" min="1"></div><div class="field"><label for="hw">Ширина холки</label><select id="hw" name="withers"><option>Узкая</option><option selected>Средняя</option><option>Широкая</option></select></div><div class="field"><label for="hg">Обхват за холкой, см</label><input id="hg" name="girth" type="number" min="100"></div><div class="field"><label for="hno">Особенности</label><input id="hno" name="notes" type="text"></div></div><button class="btn" type="submit">Сохранить</button></form>');
+ if(sub==='docs'){const rows=[];S.orders.forEach(o=>{rows.push([o.date,o.id,'Предоплата 100%',o.total+o.delivery.cost]);if(o.stage>=6)rows.push([o.date+10*864e5,o.id,'Полный расчёт',o.total+o.delivery.cost])});rows.sort((a,b)=>b[0]-a[0]);
+  return acctShell('docs','<h1 style="font-size:36px;margin-bottom:20px">Документы и чеки</h1><div class="tbl-wrap"><table class="t"><thead><tr><th>Дата</th><th>Заказ</th><th>Документ</th><th class="num">Сумма</th></tr></thead><tbody>'+rows.map(r=>'<tr><td>'+fmtD(r[0])+'</td><td>'+esc(r[1])+'</td><td>Кассовый чек «'+r[2]+'»</td><td class="num">'+rub(r[3])+'</td></tr>').join('')+'</tbody></table></div><p class="muted small" style="margin-top:12px">Чеки формирует онлайн-касса PayKeeper и отправляет в ФНС через оператора фискальных данных.</p>');}
+ if(sub==='profile'){const p=S.profile;return acctShell('profile','<h1 style="font-size:36px;margin-bottom:20px">Профиль и уведомления</h1><form class="panel" data-form="profile" novalidate><div class="split"><div class="field"><label for="pn">Имя и фамилия</label><input id="pn" name="name" type="text" value="'+esc(p.name)+'"></div><div class="field"><label for="pp">Телефон</label><input id="pp" name="phone" type="tel" value="'+esc(p.phone)+'"></div></div><div class="field"><label for="pm">E-mail</label><input id="pm" name="email" type="email" value="'+esc(p.email)+'"></div><div class="legend" style="margin:8px 0 10px">Сообщать об изменении статуса заказа</div><label class="check" style="margin-bottom:8px"><input type="checkbox" name="nEmail"'+(p.nEmail?' checked':'')+'> По e-mail</label><label class="check" style="margin-bottom:8px"><input type="checkbox" name="nSms"'+(p.nSms?' checked':'')+'> По SMS</label><label class="check" style="margin-bottom:18px"><input type="checkbox" name="nTg"'+(p.nTg?' checked':'')+'> В Telegram</label><button class="btn" type="submit">Сохранить изменения</button></form>')}
+ const list=S.orders.slice().sort((a,b)=>b.date-a.date);
+ return acctShell('orders','<h1 style="font-size:36px;margin-bottom:20px">Мои заказы</h1>'+(list.length?list.map(o=>'<a class="panel" href="#/account/order/'+encodeURIComponent(o.id)+'" style="display:flex;justify-content:space-between;gap:16px;text-decoration:none;margin-bottom:12px;flex-wrap:wrap"><div><b>'+esc(o.id)+'</b> <span class="muted small">от '+fmtD(o.date)+'</span><div class="small" style="margin-top:4px">'+esc(o.items.map(i=>i.name).join(', '))+'</div></div><div style="text-align:right">'+(o.mockup==='pending'?'<span class="status w">Ждёт согласования макета</span>':'<span class="status">'+STAGES[o.stage]+'</span>')+'<div class="small" style="margin-top:6px">'+rub(o.total+o.delivery.cost)+'</div></div></a>').join(''):'<div class="panel"><b>Заказов пока нет.</b> <a class="link" href="#/catalog">Перейти в каталог</a></div>'));
+};
+function orderDetail(id){
+ const o=S.orders.find(x=>x.id===id);if(!o)return '<p>Заказ не найден.</p>';
+ const it=o.items.find(i=>i.engr);const f=it?FONTS.find(x=>x.id===it.font)||FONTS[0]:null;
+ const mock=o.mockup==='pending'?'<div class="notice" style="margin:20px 0"><div><b>Макет гравировки готов к согласованию</b><div class="small">Пока макет не подтверждён, этап гравировки не начнётся.</div></div></div><div class="panel" style="margin-bottom:20px"><div class="plate" style="max-width:420px"><div class="engr '+f.cls+'">'+esc(it.engr)+'</div></div><p class="small muted" style="margin:12px 0">Шрифт: '+f.name+'. Размер пластины 70 × 22 мм, глубина гравировки 0,3 мм.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" data-act="approve" data-id="'+esc(o.id)+'">Подтвердить макет</button><button class="btn ghost" data-act="changes" data-id="'+esc(o.id)+'">Попросить исправить</button></div><div id="chg"></div></div>':(o.mockup==='changes'?'<div class="notice" style="margin:20px 0"><div><b>Мастер исправляет макет по вашему комментарию</b><div class="small">Новый вариант появится здесь.</div></div></div>':'');
+ const tl=STAGES.map((s,i)=>{const done=i<o.stage||(i===o.stage&&o.stage===STAGES.length-1);const cur=i===o.stage&&!done;const lock=i===4&&o.mockup!=='approved'&&it;return '<li><span class="dot '+(done?'done':cur?'now':'')+'">'+(done?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5 9-10"/></svg>':'')+'</span><div><div class="'+(cur?'cur':(done?'':'muted'))+'">'+s+(cur?', сейчас в работе':'')+(lock&&i>o.stage?' (после согласования макета)':'')+'</div>'+(i===6&&o.track&&o.stage>=6?'<div class="small">Трек-номер СДЭК: <b>'+o.track+'</b></div>':'')+'</div></li>'}).join('');
+ return '<p class="small"><a class="link" href="#/account">Все заказы</a></p><h1 style="font-size:34px;margin:12px 0 4px">Заказ '+esc(o.id)+'</h1><p class="muted">от '+fmtD(o.date)+'</p>'+mock+
+ '<div class="grid" style="grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);margin-top:20px"><div class="panel"><h3 style="margin-bottom:12px">Этапы изготовления</h3><ol class="timeline">'+tl+'</ol>'+(o.stage<STAGES.length-1?'<button class="btn sm ghost" style="margin-top:12px" data-act="nextStage" data-id="'+esc(o.id)+'">Демо: следующий этап из производства</button>':'')+'</div>'+
+ '<div><div class="panel" style="background:var(--green);color:var(--green-ink);border-color:var(--green)"><div class="small">'+(o.stage>=7?'Доставлен':'Ожидаемая дата готовности')+'</div><div style="font-family:var(--serif);font-size:32px">'+fmtD(o.ready)+'</div><div class="small" style="opacity:.85">Пересчитывается по ходу производства</div></div><div class="panel" style="margin-top:16px"><b>Состав заказа</b>'+o.items.map(i=>'<p class="small" style="margin-top:8px">'+esc(i.name)+' × '+i.qty+'<br><span class="muted">'+esc(i.spec||'')+'</span></p>').join('')+'<div class="row small"><span>Доставка</span><span>'+esc(o.delivery.method)+', '+esc(o.delivery.city)+'</span></div><div class="row tot"><span>Оплачено</span><span>'+rub(o.total+o.delivery.cost)+'</span></div></div><div class="panel" style="margin-top:16px"><b>Вопрос по заказу?</b><p class="small muted" style="margin:6px 0 10px">Менеджер ответит в рабочее время.</p><a class="btn sm ghost" href="#/help/contacts">Написать менеджеру</a></div></div></div>';
+}
+/* dealers */
+pages.dealers=()=>'<div class="wrap" style="padding:48px 24px 0"><h1>Клубам и дилерам</h1><p class="muted" style="font-size:18px;max-width:640px;margin-top:16px">Комплектуем конюшни и клубы, работаем с магазинами конного снаряжения по всей России. Документы через ЭДО, отсрочка платежа для постоянных партнёров.</p></div>'+
+ '<section><div class="wrap grid g2"><div id="club"><h2 style="margin-bottom:16px">Заявка конного клуба</h2><p class="muted" style="margin-bottom:20px">Подберём комплект под поголовье, сделаем амуницию в цветах клуба и гравировку для каждой лошади. Менеджер пришлёт предложение в течение двух рабочих дней.</p><form class="panel" data-form="club" novalidate><div class="field"><label for="cn">Название клуба</label><input id="cn" name="club" type="text"><span class="err" data-err="club"></span></div><div class="split"><div class="field"><label for="cc">Город</label><input id="cc" name="city" type="text"></div><div class="field"><label for="ch">Лошадей в клубе</label><input id="ch" name="horses" type="number" min="1"></div></div><div class="field"><label for="ccol">Цвета клуба</label><input id="ccol" name="colors" type="text" placeholder="Например, тёмно-синий и белый"></div><div class="split"><div class="field"><label for="cp">Контактное лицо</label><input id="cp" name="person" type="text"><span class="err" data-err="person"></span></div><div class="field"><label for="ct">Телефон</label><input id="ct" name="phone" type="tel"><span class="err" data-err="phone"></span></div></div><div class="field"><label for="cw">Что нужно</label><textarea id="cw" name="need" placeholder="Сёдла, оголовья, вальтрапы с вышивкой…"></textarea></div><label class="check"><input type="checkbox" name="consent"> <span>Согласен(на) на обработку персональных данных</span></label><span class="err" data-err="consent"></span><div style="margin-top:16px"><button class="btn" type="submit">Отправить заявку</button></div></form></div>'+
+ '<div><h2 style="margin-bottom:16px">Дилерам</h2><div class="panel" style="margin-bottom:20px"><ul style="margin:0;padding-left:20px" class="muted"><li>Персональные оптовые цены и актуальные остатки со склада производства</li><li>Заказ списком: вставьте артикулы и количество</li><li>Счета и УПД через ЭДО, история заказов в кабинете</li></ul><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><a class="btn" href="#/dealer">Войти в кабинет дилера</a></div></div><h3 style="margin-bottom:12px">Стать партнёром</h3><form class="panel" data-form="partner" novalidate><div class="field"><label for="dn">Компания и ИНН</label><input id="dn" name="company" type="text"><span class="err" data-err="company"></span></div><div class="field"><label for="dc">Телефон или e-mail</label><input id="dc" name="contact" type="text"><span class="err" data-err="contact"></span></div><button class="btn" type="submit">Отправить</button></form></div></div></section>';
+pages.dealer=()=>{
+ if(!S.dealer)return '<div class="wrap" style="padding:64px 24px;max-width:520px"><h1 style="font-size:40px">Кабинет дилера</h1><p class="muted" style="margin:12px 0 24px">Для демо подойдёт любой ИНН из 10 цифр и любой пароль.</p><form data-form="dealerLogin" novalidate><div class="field"><label for="di">ИНН</label><input id="di" name="inn" type="text" inputmode="numeric" value="7800000000"><span class="err" data-err="inn"></span></div><div class="field"><label for="dp">Пароль</label><input id="dp" name="pass" type="password" value="demo"></div><button class="btn" type="submit">Войти</button></form></div>';
+ const dc=S.dealerCart;const lines=Object.entries(dc).filter(([,q])=>q>0);const tot=lines.reduce((a,[id,q])=>a+Math.round(byId(id).price*0.7)*q,0);
+ return '<div class="wrap" style="padding:40px 24px 64px"><div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-end"><div><h1 style="font-size:40px">Кабинет дилера</h1><p class="muted">ООО «Конный двор», ИНН '+esc(S.dealer)+'. Ваша скидка от розницы: 30%</p></div><button class="btn sm ghost" data-act="dealerOut">Выйти</button></div>'+
+ '<h2 style="font-size:28px;margin:36px 0 14px">Прайс и остатки</h2><div class="tbl-wrap"><table class="t"><thead><tr><th>Артикул</th><th>Товар</th><th class="num">Розница</th><th class="num">Ваша цена</th><th class="num">Остаток</th><th class="num">Количество</th></tr></thead><tbody>'+P.filter(p=>!p.conf).map(p=>'<tr><td>'+p.sku+'</td><td>'+esc(p.name)+'</td><td class="num">'+rub(p.price)+'</td><td class="num"><b>'+rub(Math.round(p.price*0.7))+'</b></td><td class="num">'+(p.stock||'под заказ')+'</td><td class="num"><input type="number" min="0" value="'+(dc[p.id]||0)+'" style="width:84px;min-height:38px" aria-label="Количество '+esc(p.name)+'" data-dq="'+p.id+'"></td></tr>').join('')+'</tbody></table></div>'+
+ '<div class="grid g2" style="margin-top:28px"><form class="panel" data-form="listOrder" novalidate><h3 style="margin-bottom:10px">Заказ списком</h3><p class="muted small" style="margin-bottom:10px">По строке на позицию: артикул и количество через пробел.</p><textarea name="list" placeholder="LN-H-301 40&#10;LN-C-601 12"></textarea><span class="err" data-err="list"></span><button class="btn sm" style="margin-top:12px" type="submit">Добавить в заказ</button></form>'+
+ '<div class="panel"><h3 style="margin-bottom:10px">Текущий заказ</h3>'+(lines.length?lines.map(([id,q])=>'<div class="row small"><span>'+esc(byId(id).name)+' × '+q+'</span><span class="num">'+rub(Math.round(byId(id).price*0.7)*q)+'</span></div>').join('')+'<div class="row tot"><span>Итого без НДС</span><span>'+rub(tot)+'</span></div><button class="btn" style="margin-top:12px;width:100%" data-act="dealerSubmit">Отправить заказ</button>':'<p class="muted small">Укажите количество в прайсе или вставьте список.</p>')+'</div></div>'+
+ '<div class="grid g2" style="margin-top:28px"><div><h2 style="font-size:28px;margin-bottom:14px">История заказов</h2><div class="tbl-wrap"><table class="t"><thead><tr><th>Заказ</th><th>Дата</th><th class="num">Сумма</th><th>Статус</th></tr></thead><tbody>'+S.dealerOrders.slice().sort((a,b)=>b.date-a.date).map(o=>'<tr><td>'+esc(o.id)+'</td><td>'+fmtD(o.date)+'</td><td class="num">'+rub(o.total)+'</td><td>'+esc(o.status)+'</td></tr>').join('')+'</tbody></table></div></div>'+
+ '<div><h2 style="font-size:28px;margin-bottom:14px">Документы ЭДО</h2><div class="tbl-wrap"><table class="t"><thead><tr><th>Документ</th><th>Дата</th><th>Статус</th></tr></thead><tbody>'+S.dealerOrders.slice().sort((a,b)=>b.date-a.date).map(o=>'<tr><td>'+(o.status==='Отгружен'?'УПД':'Счёт')+' по заказу '+esc(o.id)+'</td><td>'+fmtD(o.date)+'</td><td>'+(o.status==='Отгружен'?'Подписан':'Отправлен')+'</td></tr>').join('')+'</tbody></table></div></div></div></div>';
+};
+pages.engraving=()=>{const t=S.conf.engraving||'Гранд';
+ return '<div class="wrap" style="padding:48px 24px 0"><h1>Гравировка</h1><p class="muted" style="font-size:18px;max-width:640px;margin-top:16px">Кличка лошади, инициалы всадника или эмблема клуба на латунной и стальной пластине, коже и вальтрапе. Макет всегда согласуем с вами до начала работы.</p></div>'+
+ '<section><div class="wrap"><div class="field" style="max-width:420px"><label for="eg">Проверьте, как будет выглядеть ваш текст</label><input id="eg" type="text" maxlength="20" value="'+esc(t)+'" data-bind="engrSamples"></div><div class="grid g3" id="engrSamples">'+FONTS.map(f=>'<div><div class="plate"><div class="engr '+f.cls+'" data-sample>'+esc(t)+'</div></div><p class="small muted" style="margin-top:8px">'+f.name+'</p></div>').join('')+'</div></div></section>'+
+ '<section style="padding-top:0"><div class="wrap"><h2 style="margin-bottom:20px">Где и как гравируем</h2><div class="tbl-wrap"><table class="t"><thead><tr><th>Изделие</th><th>Материал</th><th>До символов</th><th>Способ</th><th class="num">Цена</th></tr></thead><tbody><tr><td>Седло: крыло или задняя лука</td><td>Латунь, сталь</td><td>20</td><td>Лазерная гравировка пластины</td><td class="num">3 500 ₽</td></tr><tr><td>Налобник, недоуздок</td><td>Латунная пластина</td><td>16</td><td>Лазерная гравировка</td><td class="num">1 500 ₽</td></tr><tr><td>Кожаные ремни</td><td>Кожа</td><td>12</td><td>Горячее тиснение</td><td class="num">1 500 ₽</td></tr><tr><td>Вальтрап</td><td>Ткань</td><td>16 или эмблема</td><td>Машинная вышивка</td><td class="num">1 500 ₽</td></tr></tbody></table></div>'+
+ '<h3 style="margin:32px 0 16px">Как согласуем макет</h3><div class="grid g3">'+[['Вы указываете текст','В конструкторе или карточке товара выбираете шрифт и место.'],['Мастер готовит макет','Макет с точными размерами появляется в личном кабинете.'],['Вы подтверждаете','Гравировку начинаем только после подтверждения, поэтому ошибок в тексте не бывает.']].map((s,i)=>'<div class="step"><div class="n">'+(i+1)+'</div><b>'+s[0]+'</b><p class="muted">'+s[1]+'</p></div>').join('')+'</div></div></section>';};
+pages.about=()=>'<div class="wrap" style="padding:48px 24px 0"><h1>О производстве</h1><p class="muted" style="font-size:18px;max-width:680px;margin-top:16px">Раскрой, пошив, ковка и гравировка идут в собственных цехах. Каждый этап мастер отмечает в системе учёта, поэтому статус вашего заказа в личном кабинете всегда актуален.</p></div>'+
+ '<section><div class="wrap grid g3">'+[['Раскройный цех','Подбор и раскрой кожи. Каждая деталь маркируется номером заказа.'],['Шорно-седельный цех','Сборка и пошив сёдел, уздечек и ремней. Ручная и машинная строчка.'],['Кузнечный участок','Серийные подковы, подковы по меркам, фурнитура.'],['Участок гравировки','Лазерная гравировка пластин, тиснение по коже, вышивка.'],['Отдел контроля качества','Проверка каждого изделия перед упаковкой и отгрузкой.'],['Склад и отгрузка','Резерв материалов под заказ и передача в службу доставки.']].map(s=>'<div class="panel"><h3 style="font-size:20px">'+s[0]+'</h3><p class="muted" style="margin-top:8px">'+s[1]+'</p></div>').join('')+'</div></section>'+
+ '<section id="vacancies" style="padding-top:0"><div class="wrap" style="max-width:860px"><h2 style="margin-bottom:12px">Вакансии</h2>'+[['Шорник','Пошив и ремонт амуниции. Опыт работы с кожей от 2 лет.'],['Кузнец-ковщик','Изготовление подков и фурнитуры. Работа по чертежам и меркам.'],['Оператор лазерного гравёра','Подготовка макетов и гравировка. Обучим работе с оборудованием.'],['Менеджер по работе с клубами','Консультации клубов и дилеров, подготовка предложений.']].map((v,i)=>'<details class="vac"><summary>'+v[0]+'</summary><p class="muted" style="margin:10px 0">'+v[1]+'</p><form data-form="vacancy" data-v="'+v[0]+'" novalidate class="split"><div class="field"><label for="vn'+i+'">Имя</label><input id="vn'+i+'" name="name" type="text"><span class="err" data-err="name"></span></div><div class="field"><label for="vc'+i+'">Телефон</label><input id="vc'+i+'" name="phone" type="tel"><span class="err" data-err="phone"></span></div><div><button class="btn sm" type="submit">Откликнуться</button></div></form></details>').join('')+'</div></section>';
+const HELP=[['delivery','Доставка и оплата'],['returns','Возврат'],['measure','Как снять мерки'],['contacts','Контакты'],['privacy','Политика обработки ПДн']];
+pages.help=slug=>{
+ const H={
+ delivery:'<h1 style="font-size:40px;margin-bottom:20px">Доставка и оплата</h1><div class="tbl-wrap" style="margin-bottom:20px"><table class="t"><thead><tr><th>Способ</th><th>Санкт-Петербург</th><th>Москва</th><th>Другие города</th></tr></thead><tbody><tr><td>СДЭК, пункт выдачи</td><td>390 ₽</td><td>490 ₽</td><td>от 590 ₽</td></tr><tr><td>СДЭК, курьер</td><td>690 ₽</td><td>790 ₽</td><td>от 890 ₽</td></tr><tr><td>Самовывоз с производства</td><td colspan="3">бесплатно</td></tr></tbody></table></div><div class="prose"><p>Стоимость рассчитывается автоматически при оформлении заказа. Трек-номер появляется в личном кабинете сразу после отгрузки.</p><h3>Оплата</h3><p>Принимаем оплату через PayKeeper: по СБП или банковской картой. Юридические лица оплачивают по счёту, документы приходят через ЭДО.</p><h3>Чеки</h3><p>Изделия, которые мы изготавливаем по вашему заказу, оплачиваются заранее. Сразу после оплаты вы получите чек «Предоплата 100%», а при отгрузке — чек «Полный расчёт». Оба чека хранятся в разделе «Документы и чеки».</p></div>',
+ returns:'<h1 style="font-size:40px;margin-bottom:20px">Возврат</h1><div class="prose"><p>Товары из наличия можно вернуть в течение 14 дней после получения, если они не были в использовании и сохранили товарный вид.</p><p>Изделия, изготовленные по вашим меркам или с гравировкой, вернуть можно только при производственном браке. Поэтому мы согласуем с вами макет и параметры до начала работы.</p><h3>Как оформить возврат</h3><ol><li>Напишите нам через форму в разделе «Контакты» и укажите номер заказа.</li><li>Менеджер пришлёт инструкцию и адрес для отправки.</li><li>Деньги вернутся на карту или счёт, с которого была оплата, в течение 10 дней после получения товара.</li></ol></div>',
+ measure:'<h1 style="font-size:40px;margin-bottom:20px">Как снять мерки</h1><div class="prose"><p>Мерки нужны, чтобы седло легло на спину без давления. Если сомневаетесь, выберите в конструкторе «Нужна консультация мастера».</p><ol><li><b>Шаблон холки.</b> Согните гибкую линейку по спине на расстоянии двух пальцев за лопаткой и обведите получившийся изгиб на листе картона.</li><li><b>Профиль спины.</b> Сделайте то же самое вдоль позвоночника от холки до поясницы.</li><li><b>Обхват.</b> Измерьте обхват за холкой мерной лентой в сантиметрах.</li><li><b>Фото.</b> Сфотографируйте лошадь сбоку на ровной площадке, стоящую ровно на четырёх ногах.</li></ol><p>Сохраните мерки в разделе «Мои лошади и мерки», и мастер увидит их вместе с заказом.</p></div>',
+ contacts:'<h1 style="font-size:40px;margin-bottom:20px">Контакты</h1><div class="split"><div class="panel"><div class="row"><span class="muted">Телефон</span><span>+7 (000) 000-00-00</span></div><div class="row"><span class="muted">E-mail</span><span>hello@example.ru</span></div><div class="row"><span class="muted">Производство и самовывоз</span><span>[Адрес производства]</span></div><div class="row"><span class="muted">Часы работы</span><span>Пн–Пт, 9:00–18:00</span></div></div><form class="panel" data-form="contact" novalidate><h3 style="margin-bottom:12px">Написать нам</h3><div class="field"><label for="kn">Имя</label><input id="kn" name="name" type="text"><span class="err" data-err="name"></span></div><div class="field"><label for="kc">Телефон или e-mail</label><input id="kc" name="contact" type="text"><span class="err" data-err="contact"></span></div><div class="field"><label for="km">Сообщение</label><textarea id="km" name="msg"></textarea><span class="err" data-err="msg"></span></div><button class="btn" type="submit">Отправить сообщение</button></form></div>',
+ privacy:'<h1 style="font-size:40px;margin-bottom:20px">Политика обработки персональных данных</h1><div class="prose"><p class="muted">Краткое изложение для прототипа. Полный текст утверждает юрист компании.</p><h3>Какие данные мы собираем</h3><p>Имя, телефон, e-mail, адрес доставки, мерки лошади и историю заказов.</p><h3>Зачем</h3><p>Чтобы изготовить и доставить заказ, отправить чеки и уведомления о статусе, ответить на обращения.</p><h3>Где хранятся</h3><p>Данные хранятся на серверах в России. Доступ есть только у сотрудников, которым он нужен для работы с заказом.</p><h3>Ваши права</h3><p>Вы можете запросить, исправить или удалить свои данные, написав нам через раздел «Контакты».</p></div>'};
+ if(!H[slug])return pages.notfound();
+ return '<div class="wrap help"><nav class="side" aria-label="Покупателям">'+HELP.map(h=>'<a href="#/help/'+h[0]+'" class="'+(h[0]===slug?'on':'')+'">'+h[1]+'</a>').join('')+'</nav><div>'+H[slug]+'</div></div>';
+};
+pages.admin=tab=>{
+ tab=tab||'log';
+ const tabs='<div class="tabs">'+[['log','Журнал интеграций'],['mockups','Макеты гравировки'],['content','Контент'],['requests','Заявки'],['roles','Роли']].map(t=>'<a href="#/admin/'+t[0]+'" class="'+(t[0]===tab?'on':'')+'">'+t[1]+'</a>').join('')+'</div>';
+ let body='';
+ if(tab==='log')body='<p class="muted" style="margin-bottom:14px">Обмен сайта с 1С:ERP, MES, CRM, PayKeeper и службами доставки. Новые события появляются, когда вы оформляете заказ, согласуете макет или двигаете этапы.</p><div class="tbl-wrap"><table class="t"><thead><tr><th>Время</th><th>Откуда</th><th>Куда</th><th>Событие</th><th>Статус</th></tr></thead><tbody>'+S.log.slice().sort((a,b)=>b.t-a.t).map(l=>'<tr><td>'+fmtT(l.t)+'</td><td>'+esc(l.from)+'</td><td>'+esc(l.to)+'</td><td>'+esc(l.ev)+'</td><td><span class="status">доставлено</span></td></tr>').join('')+'</tbody></table></div>';
+ if(tab==='mockups'){const rows=S.orders.filter(o=>o.items.some(i=>i.engr));body='<div class="tbl-wrap"><table class="t"><thead><tr><th>Заказ</th><th>Текст</th><th>Статус макета</th><th></th></tr></thead><tbody>'+rows.map(o=>{const it=o.items.find(i=>i.engr);const st={none:'Не подготовлен',pending:'Ждёт клиента',changes:'Клиент просит исправить',approved:'Подтверждён'}[o.mockup];return '<tr><td>'+esc(o.id)+'</td><td>'+esc(it.engr)+'</td><td>'+st+(o.comment?'<div class="small muted">'+esc(o.comment)+'</div>':'')+'</td><td>'+(o.mockup==='none'||o.mockup==='changes'?'<button class="btn sm" data-act="sendMockup" data-id="'+esc(o.id)+'">Отправить клиенту</button>':'')+'</td></tr>'}).join('')+'</tbody></table></div>';}
+ if(tab==='content')body='<form class="panel" data-form="content" novalidate style="max-width:720px"><div class="field"><label for="ht">Заголовок на главной</label><input id="ht" name="heroTitle" type="text" value="'+esc(S.content.heroTitle)+'"></div><div class="field"><label for="hs">Подзаголовок</label><textarea id="hs" name="heroSub">'+esc(S.content.heroSub)+'</textarea></div><button class="btn" type="submit">Опубликовать</button></form>';
+ if(tab==='requests')body=S.requests.length?'<div class="tbl-wrap"><table class="t"><thead><tr><th>Время</th><th>Тип</th><th>Содержание</th></tr></thead><tbody>'+S.requests.slice().reverse().map(r=>'<tr><td>'+fmtT(r.t)+'</td><td>'+esc(r.type)+'</td><td>'+esc(r.text)+'</td></tr>').join('')+'</tbody></table></div>':'<p class="muted">Заявок пока нет. Отправьте заявку клуба, отклик на вакансию или сообщение из раздела «Контакты».</p>';
+ if(tab==='roles')body='<div class="tbl-wrap"><table class="t"><thead><tr><th>Роль</th><th>Доступ</th></tr></thead><tbody><tr><td>Администратор</td><td>Все разделы, настройки, журнал интеграций</td></tr><tr><td>Контент-менеджер</td><td>Страницы, баннеры, тексты</td></tr><tr><td>Мастер гравировки</td><td>Загрузка и отправка макетов</td></tr><tr><td>Менеджер</td><td>Просмотр заказов и заявок</td></tr></tbody></table></div>';
+ return '<div class="wrap" style="padding:40px 24px 64px"><h1 style="font-size:40px;margin-bottom:8px">Панель администратора</h1><p class="muted" style="margin-bottom:24px">Демо-версия для показа связей сайта с другими системами.</p>'+tabs+body+'<p style="margin-top:28px"><button class="link" data-act="reset">Сбросить демо-данные</button></p></div>';
+};
+pages.notfound=()=>'<div class="wrap" style="padding:80px 24px"><h1>Страница не найдена</h1><p class="muted" style="margin:16px 0 24px">Возможно, ссылка устарела. Начните с главной или каталога.</p><a class="btn" href="#/">На главную</a></div>';
+
+/* ---------- router ---------- */
+const TITLES={home:'Ленчик — мастерская конной амуниции'};
+function render(){
+ const raw=(location.hash.replace(/^#/,'').split('#')[0])||'/';const [path,q]=raw.split('?');const seg=path.split('/').filter(Boolean).map(decodeURIComponent);
+ let html,nav='';
+ switch(seg[0]){
+  case undefined:html=pages.home();break;
+  case 'catalog':html=pages.catalog(seg[1],q);nav='catalog';break;
+  case 'product':html=pages.product(seg[1]);nav='catalog';break;
+  case 'configurator':html=pages.configurator(q);nav='configurator';break;
+  case 'cart':html=pages.cart();break;
+  case 'checkout':html=pages.checkout();break;
+  case 'success':html=pages.success(seg[1]);break;
+  case 'account':html=pages.account(seg[1],seg[2]);break;
+  case 'dealers':html=pages.dealers();nav='dealers';break;
+  case 'dealer':html=pages.dealer();nav='dealers';break;
+  case 'engraving':html=pages.engraving();nav='engraving';break;
+  case 'about':html=pages.about();nav='about';break;
+  case 'help':html=pages.help(seg[1]||'delivery');nav='help';break;
+  case 'admin':html=pages.admin(seg[1]);break;
+  default:html=pages.notfound();
+ }
+ const app=document.getElementById('app');app.innerHTML=html;
+ document.querySelectorAll('[data-nav]').forEach(a=>a.classList.toggle('active',a.dataset.nav===nav));
+ document.getElementById('nav').classList.remove('open');
+ document.getElementById('cartCount').textContent=S.cart.reduce((a,i)=>a+i.qty,0);
+ const h1=app.querySelector('h1');document.title=(h1&&seg[0]?h1.textContent+' — Ленчик':TITLES.home);
+ const anchor=location.hash.split('#')[2];
+ if(anchor){const el=document.getElementById(anchor);if(el){el.scrollIntoView();return}}
+ window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',render);
+
+/* ---------- actions ---------- */
+function go(h){if(location.hash===h)render();else location.hash=h}
+function addToCart(item){const same=S.cart.find(i=>i.pid===item.pid&&i.spec===item.spec);if(same)same.qty+=item.qty;else S.cart.push(item);save();document.getElementById('cartCount').textContent=S.cart.reduce((a,i)=>a+i.qty,0);toast('Добавлено в корзину')}
+const A={
+ burger(el){const n=document.getElementById('nav');n.classList.toggle('open');el.setAttribute('aria-expanded',n.classList.contains('open'))},
+ quickAdd(el){const p=byId(el.dataset.id);addToCart({pid:p.id,name:p.name,spec:'',qty:1,price:p.price})},
+ heroToConf(){S.conf.engraving=(document.getElementById('heroInput').value||'').trim();save();go('#/configurator')},
+ confAdd(){const c=S.conf;const r=confCalc(c);const tree={narrow:'узкий',medium:'средний',wide:'широкий',consult:'подбор мастером'}[c.tree];
+  const spec='Ленчик '+tree+', сиденье '+c.seat.replace('.',',')+'", кожа '+r.leather.name.toLowerCase()+', фурнитура '+(c.metal==='brass'?'латунь':'сталь')+(c.engraving.trim()?', гравировка «'+c.engraving.trim()+'» ('+FONTS.find(f=>f.id===c.font).name.toLowerCase()+') '+(c.place==='flap'?'на крыле':'на задней луке'):'');
+  addToCart({pid:c.model,name:r.model.name,spec,qty:1,price:r.price,engr:c.engraving.trim(),font:c.font,custom:true});go('#/cart')},
+ qty(el){const i=S.cart[+el.dataset.k];i.qty=Math.max(1,i.qty+(+el.dataset.d));save();render()},
+ rm(el){S.cart.splice(+el.dataset.k,1);save();render()},
+ logout(){S.user=null;save();go('#/account')},
+ approve(el){const o=S.orders.find(x=>x.id===el.dataset.id);o.mockup='approved';log('Сайт','1С:ERP → MES',o.id+': макет гравировки подтверждён клиентом, этап «Гравировка» открыт');save();toast('Макет подтверждён');render()},
+ changes(el){const box=document.getElementById('chg');box.innerHTML='<form data-form="changes" data-id="'+esc(el.dataset.id)+'" novalidate style="margin-top:14px"><div class="field"><label for="chc">Что исправить</label><textarea id="chc" name="comment"></textarea><span class="err" data-err="comment"></span></div><button class="btn sm" type="submit">Отправить мастеру</button></form>';box.querySelector('textarea').focus()},
+ nextStage(el){const o=S.orders.find(x=>x.id===el.dataset.id);if(o.stage===3&&o.items.some(i=>i.engr)&&o.mockup!=='approved'){toast('Гравировка не начнётся, пока макет не подтверждён');return}
+  if(o.stage===0&&!o.items.some(i=>i.engr)){o.stage=2}else o.stage++;
+  if(o.stage===1&&o.mockup==='none'){o.mockup='pending';log('1С:ERP','Сайт',o.id+': макет гравировки загружен на согласование')}
+  if(o.stage===6){o.track=String(1049000000+Math.floor(Math.random()*999999));log('1С:ERP','СДЭК',o.id+': создано отправление, трек '+o.track);log('Сайт','PayKeeper',o.id+': чек «Полный расчёт» при отгрузке')}
+  if(o.stage===7){o.ready=Date.now()}
+  log('MES','1С:ERP → Сайт',o.id+': этап «'+STAGES[o.stage]+'»');save();render()},
+ dealerOut(){S.dealer=null;save();render()},
+ dealerSubmit(){const lines=Object.entries(S.dealerCart).filter(([,q])=>q>0);const tot=lines.reduce((a,[id,q])=>a+Math.round(byId(id).price*0.7)*q,0);const id='Д-2026-00'+(45+S.dealerOrders.length);S.dealerOrders.push({id,date:Date.now(),lines:lines.length,total:tot,status:'Принят'});log('Сайт','1С:ERP',id+': заказ дилера, '+lines.length+' поз.');log('1С:ERP','ЭДО',id+': счёт отправлен дилеру');S.dealerCart={};save();toast('Заказ '+id+' отправлен');render()},
+ sendMockup(el){const o=S.orders.find(x=>x.id===el.dataset.id);o.mockup='pending';o.comment='';log('1С:ERP','Сайт',o.id+': макет гравировки загружен на согласование');save();toast('Макет отправлен клиенту');render()},
+ reset(){S=seed();save();toast('Демо-данные сброшены');go('#/')}
+};
+document.addEventListener('click',e=>{const el=e.target.closest('[data-act]');if(el&&A[el.dataset.act]){e.preventDefault();A[el.dataset.act](el,e)}});
+let searchT;
+document.addEventListener('input',e=>{const t=e.target;
+ if(t.dataset.bind==='heroPlate'){document.getElementById('heroPlate').textContent=t.value||'Гранд';S.conf.engraving=t.value;save()}
+ if(t.dataset.bind==='engrSamples'){document.querySelectorAll('[data-sample]').forEach(s=>s.textContent=t.value||'Гранд')}
+ if(t.dataset.confText){S.conf[t.dataset.confText]=t.value;save();updateConf()}
+ if(t.dataset.actInput==='catSearch'){clearTimeout(searchT);searchT=setTimeout(()=>setCatParam('s',t.value,true),350)}
+});
+document.addEventListener('change',e=>{const t=e.target;
+ if(t.dataset.conf){S.conf[t.dataset.conf]=t.value;save();updateConf()}
+ if(t.dataset.actChange==='catSort')setCatParam('sort',t.value);
+ if(t.dataset.actChange==='catStock')setCatParam('in',t.checked?'1':'');
+ if(t.dataset.actChange==='recalc')recalc();
+ if(t.dataset.dq){const v=Math.max(0,parseInt(t.value,10)||0);S.dealerCart[t.dataset.dq]=v;save();render()}
+});
+function updateConf(){const r=confCalc(S.conf);document.getElementById('confPreview').innerHTML=saddleSVG(S.conf);document.getElementById('confSummary').innerHTML=confSummaryHTML(r)}
+function setCatParam(k,v,keepFocus){const raw=location.hash.replace(/^#/,'');const [path,q]=raw.split('?');const p=new URLSearchParams(q||'');if(v)p.set(k,v);else p.delete(k);const nh='#'+path+(p.toString()?'?'+p:'');history.replaceState(null,'',nh);render();if(keepFocus){const s=document.getElementById('cs');if(s){s.focus();s.setSelectionRange(s.value.length,s.value.length)}}}
+function recalc(){const f=document.querySelector('[data-form="checkout"]');const city=f.elements['city'].value;const m=f.querySelector('input[name=method]:checked').value;const d=delivCost(city,m);const sum=S.cart.reduce((a,i)=>a+i.price*i.qty,0);document.getElementById('dCost').textContent=rub(d);document.getElementById('dTotal').textContent=rub(sum+d);f.elements['addr'].closest('.field').style.display=m==='pickup'?'none':''}
+/* forms */
+function errs(f,map){f.querySelectorAll('[data-err]').forEach(e=>e.textContent='');let first=null;Object.entries(map).forEach(([k,m])=>{const e=f.querySelector('[data-err="'+k+'"]');if(e)e.textContent=m;if(!first)first=f.elements[k]});if(first&&first.focus)first.focus();return Object.keys(map).length===0}
+const phoneOk=v=>v.replace(/\D/g,'').length>=10;const emailOk=v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+document.addEventListener('input',e=>{const f=e.target.form;if(!f)return;const er=f.querySelector('[data-err="'+e.target.name+'"]');if(er)er.textContent=''},true);
+const F={
+ addProduct(f){const p=byId(f.dataset.id);const size=f.elements['size']?f.querySelector('input[name=size]:checked').value:'';const engr=f.elements['engr']?f.elements['engr'].value.trim():'';const qty=Math.max(1,parseInt(f.elements['qty'].value,10)||1);
+  addToCart({pid:p.id,name:p.name,spec:[size?'Размер '+size:'',engr?(p.cat==='blankets'?'вышивка':'пластина')+' «'+engr+'»':''].filter(Boolean).join(', '),qty,price:p.price+(engr?1500:0),engr,font:'serif'})},
+ checkout(f){const e={};if(!f.elements['name'].value.trim())e.name='Укажите имя и фамилию';if(!phoneOk(f.elements['phone'].value))e.phone='Укажите телефон, минимум 10 цифр';if(!emailOk(f.elements['email'].value))e.email='Укажите e-mail, на него придёт чек';const m=f.querySelector('input[name=method]:checked').value;if(m!=='pickup'&&!f.elements['addr'].value.trim())e.addr='Укажите адрес или пункт выдачи';if(!f.elements['consent'].checked)e.consent='Без согласия мы не сможем оформить заказ';if(!errs(f,e))return;
+  const ov=document.createElement('div');ov.className='overlay';ov.innerHTML='<div class="box" role="status"><div class="spinner"></div><b>Переходим на платёжную страницу PayKeeper</b><p class="muted small" style="margin-top:8px">В демо оплата проходит автоматически</p></div>';document.body.appendChild(ov);
+  setTimeout(()=>{const city=f.elements['city'].value;const d=delivCost(city,m);const total=S.cart.reduce((a,i)=>a+i.price*i.qty,0);const id='Л-2026-0'+(143+S.orders.length);const custom=S.cart.some(i=>i.custom);const hasEngr=S.cart.some(i=>i.engr);const days=custom?Math.max(...S.cart.filter(i=>i.custom).map(()=>confCalc(S.conf).days)):3;
+   S.orders.push({id,date:Date.now(),items:S.cart.map(i=>({name:i.name,spec:i.spec,qty:i.qty,price:i.price,engr:i.engr,font:i.font,custom:i.custom})),total,delivery:{method:{pvz:'СДЭК, пункт выдачи',courier:'СДЭК, курьер',pickup:'Самовывоз'}[m],city,cost:d},pay:f.querySelector('input[name=pay]:checked').value,stage:0,mockup:hasEngr?'none':'approved',ready:addWorkDays(now(),days),track:null});
+   S.profile.name=f.elements['name'].value.trim();S.profile.phone=f.elements['phone'].value.trim();S.profile.email=f.elements['email'].value.trim();S.user=S.profile.phone;
+   log('PayKeeper','Сайт',id+': оплата '+rub(total+d)+' ('+f.querySelector('input[name=pay]:checked').value+'), чек «Предоплата 100%»');log('Сайт','1С:ERP',id+': заказ передан со спецификацией, материалы зарезервированы');log('Сайт','CRM',id+': клиент '+S.profile.name+' добавлен');if(m!=='pickup')log('Сайт','СДЭК',id+': стоимость доставки рассчитана, '+rub(d));
+   S.cart=[];save();ov.remove();go('#/success/'+encodeURIComponent(id))},1400)},
+ login(f){if(!/^\d{4}$/.test(f.elements['code'].value)){errs(f,{code:'Введите код из 4 цифр'});return}S.user=f.elements['login'].value;save();render()},
+ horse(f){if(!f.elements['name'].value.trim()){errs(f,{name:'Укажите кличку'});return}S.horses.push({id:'h'+Date.now(),name:f.elements['name'].value.trim(),breed:f.elements['breed'].value.trim()||'Порода не указана',age:f.elements['age'].value||'—',withers:f.elements['withers'].value,girth:f.elements['girth'].value||'—',notes:f.elements['notes'].value.trim()});save();toast('Лошадь добавлена');render()},
+ profile(f){Object.assign(S.profile,{name:f.elements['name'].value,phone:f.elements['phone'].value,email:f.elements['email'].value,nEmail:f.elements['nEmail'].checked,nSms:f.elements['nSms'].checked,nTg:f.elements['nTg'].checked});log('Сайт','CRM','Профиль клиента обновлён');save();toast('Изменения сохранены');render()},
+ changes(f){if(!f.elements['comment'].value.trim()){errs(f,{comment:'Опишите, что нужно исправить'});return}const o=S.orders.find(x=>x.id===f.dataset.id);o.mockup='changes';o.comment=f.elements['comment'].value.trim();log('Сайт','1С:ERP',o.id+': клиент просит исправить макет');save();toast('Комментарий отправлен мастеру');render()},
+ club(f){const e={};if(!f.elements['club'].value.trim())e.club='Укажите название клуба';if(!f.elements['person'].value.trim())e.person='Укажите контактное лицо';if(!phoneOk(f.elements['phone'].value))e.phone='Укажите телефон, минимум 10 цифр';if(!f.elements['consent'].checked)e.consent='Нужно согласие на обработку данных';if(!errs(f,e))return;S.requests.push({t:Date.now(),type:'Заявка клуба',text:f.elements['club'].value+', '+(f.elements['city'].value||'город не указан')+', лошадей: '+(f.elements['horses'].value||'—')});log('Сайт','CRM','Новая заявка клуба «'+f.elements['club'].value.trim()+'»');save();f.outerHTML='<div class="panel"><h3>Заявка отправлена</h3><p class="muted" style="margin-top:8px">Менеджер свяжется с вами в течение двух рабочих дней.</p></div>'},
+ partner(f){const e={};if(!f.elements['company'].value.trim())e.company='Укажите компанию и ИНН';if(!f.elements['contact'].value.trim())e.contact='Укажите телефон или e-mail';if(!errs(f,e))return;S.requests.push({t:Date.now(),type:'Заявка дилера',text:f.elements['company'].value});log('Сайт','CRM','Новая заявка дилера');save();f.outerHTML='<div class="panel"><b>Спасибо! Менеджер пришлёт условия сотрудничества.</b></div>'},
+ dealerLogin(f){if(!/^\d{10}$/.test(f.elements['inn'].value.trim())){errs(f,{inn:'ИНН юрлица состоит из 10 цифр'});return}S.dealer=f.elements['inn'].value.trim();save();render()},
+ listOrder(f){const lines=f.elements['list'].value.split('\n').map(s=>s.trim()).filter(Boolean);const bad=[];lines.forEach(l=>{const [sku,q]=l.split(/\s+/);const p=P.find(x=>x.sku.toLowerCase()===(sku||'').toLowerCase());const n=parseInt(q,10);if(!p||p.conf||!(n>0))bad.push(l);else S.dealerCart[p.id]=(S.dealerCart[p.id]||0)+n});if(!lines.length){errs(f,{list:'Вставьте хотя бы одну строку'});return}save();render();if(bad.length)toast('Не распознаны строки: '+bad.join('; '));else toast('Позиции добавлены в заказ')},
+ vacancy(f){const e={};if(!f.elements['name'].value.trim())e.name='Укажите имя';if(!phoneOk(f.elements['phone'].value))e.phone='Укажите телефон';if(!errs(f,e))return;S.requests.push({t:Date.now(),type:'Отклик на вакансию',text:f.dataset.v+': '+f.elements['name'].value});save();f.outerHTML='<p class="status">Отклик отправлен, мы перезвоним</p>'},
+ contact(f){const e={};if(!f.elements['name'].value.trim())e.name='Укажите имя';if(!f.elements['contact'].value.trim())e.contact='Укажите, как с вами связаться';if(!f.elements['msg'].value.trim())e.msg='Напишите сообщение';if(!errs(f,e))return;S.requests.push({t:Date.now(),type:'Сообщение',text:f.elements['msg'].value.slice(0,80)});log('Сайт','CRM','Новое обращение из формы «Контакты»');save();f.outerHTML='<div class="panel"><h3>Сообщение отправлено</h3><p class="muted" style="margin-top:8px">Ответим в рабочее время.</p></div>'},
+ content(f){S.content.heroTitle=f.elements['heroTitle'].value.trim()||S.content.heroTitle;S.content.heroSub=f.elements['heroSub'].value.trim()||S.content.heroSub;save();toast('Опубликовано на главной')}
+};
+document.addEventListener('submit',e=>{const f=e.target;if(f.dataset.form&&F[f.dataset.form]){e.preventDefault();F[f.dataset.form](f)}});
+render();
+})();
+</script>
+</body>
+</html>
